@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة السفر العربية</title>
+    <title>لُعْبَة السَّفَر</title>
     <style>
     @font-face {
         font-family: 'AraKom';
@@ -19,26 +19,64 @@
         --bg: #ecf0f1;
     }
 
-    body {
-        font-family: 'AraKom', Arial, sans-serif;
-        background-color: var(--bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        overflow: hidden;
-    }
+   body {
+    font-family: 'AraKom', Arial, sans-serif;
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
 
     .game-card {
-        position: relative;
-        background: white;
-        padding: 3rem;
-        border-radius: 30px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        width: 800px;
-        text-align: center;
+    position: relative;
+    background: white;
+    padding: 0.5rem;
+    /* Genişlik ve yüksekliği tüm ekrana yayıyoruz */
+    width: 100vw; 
+    height: 100vh;
+    /* Köşe ovalini kaldırıyoruz çünkü artık tam ekran */
+    border-radius: 0; 
+    box-shadow: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* İçerikleri dikeyde ortalar */
+    box-sizing: border-box;
+}
+
+/* Picker konteynırını da genişletelim ki ekranı doldursun */
+.pickers-container {
+    display: flex;
+    gap: 10px;
+    height: 45vh; /* Ekran yüksekliğinin yarısı kadar yapalım */
+    margin-bottom: 0.5rem;
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 20px;
+    padding: 10px;
+    width: 50%; /* Kenarlardan çok az pay bırakır */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    /* Giriş Ekranı Tasarımı */
+    #startScreen h1 {
+        font-size: 4.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
     }
+
+    .instructions {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    direction: rtl;
+    margin-bottom: 10px; /* Alttan 10px boşluk */
+}
 
     .back-button {
         position: absolute;
@@ -53,14 +91,13 @@
         color: var(--primary);
         border-radius: 15px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: 0.3s;
         z-index: 100;
         border: 1px solid #eee;
         text-decoration: none;
     }
 
     .back-button:hover {
-        transform: translateX(-5px);
         background: var(--primary);
         color: white;
     }
@@ -82,24 +119,15 @@
 
     .sentence-box {
         background: #f8f9fa;
-        padding: 2rem;
+        padding: 1rem;
         border-radius: 20px;
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
+        font-size: 5rem;
+        margin-bottom: 0.5rem;
         border: 3px solid #eee;
         color: #2c3e50;
     }
 
-    .pickers-container {
-        display: flex;
-        gap: 20px;
-        height: 350px;
-        margin-bottom: 2rem;
-        position: relative;
-        background: #f1f1f1;
-        border-radius: 20px;
-        padding: 10px;
-    }
+    
 
     .selection-overlay {
         position: absolute;
@@ -113,36 +141,33 @@
         background: rgba(52, 152, 219, 0.1);
         pointer-events: none;
         z-index: 10;
-
     }
 
     .picker-column {
-    flex: 1;
-    overflow-y: scroll;
-    overflow-x: hidden; /* Yatay kaymayı engelle */
-    scroll-snap-type: y mandatory;
-    height: 100%;
-    scrollbar-width: none;
-    position: relative;
-    border-radius: 15px;
-    background: white;
-    /* transition'ı sadece transform için kullanın, tüm özellikleri etkilemesin */
-    transition: transform 0.5s ease; 
-    display: flex;
-    flex-direction: column;
-    -webkit-overflow-scrolling: touch; /* Mobil akıcılığı için */
-}
+        flex: 1;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+        height: 100%;
+        scrollbar-width: none;
+        position: relative;
+        border-radius: 15px;
+        background: white;
+        transition: 0.3s;
+        display: flex;
+        flex-direction: column;
+        -webkit-overflow-scrolling: touch;
+    }
 
     .picker-column::-webkit-scrollbar { display: none; }
 
-    /* Animasyonlar */
     @keyframes spinDown {
         0% { transform: translateY(0); }
-        100% { transform: translateY(-600px); }
+        100% { transform: translateY(-400px); }
     }
 
     @keyframes spinUp {
-        0% { transform: translateY(-600px); }
+        0% { transform: translateY(-400px); }
         100% { transform: translateY(0); }
     }
 
@@ -153,12 +178,11 @@
         align-items: center;
         justify-content: center;
         scroll-snap-align: center;
-        font-size: 5rem;
+        font-size: 4.5rem;
         opacity: 0.3;
         transition: 0.3s;
         flex-shrink: 0;
-       pointer-events: auto; /* Tıklanabilir olduğundan emin olun */
-        backface-visibility: hidden; /* Animasyon akıcılığı için */
+
     }
 
     .picker-item.active { 
@@ -175,29 +199,209 @@
         75% { transform: translateX(8px); }
     }
 
-    button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 15px 50px;
-        border-radius: 50px;
-        font-size: 1.8rem;
-        cursor: pointer;
-        font-family: 'AraKom', sans-serif;
+   button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 20px 70px; /* Yatay boşluğu buradan kontrol edebilirsin */
+    border-radius: 50px;
+    font-size: 3rem;
+    cursor: pointer;
+    font-family: 'AraKom', sans-serif;
+    box-shadow: 0 4px 0 #2980b9;
+    
+    /* EKLEMEN GEREKENLER */
+    align-self: center; /* Butonu merkeze alır ve genişlemesini engeller */
+    width: fit-content; /* Sadece metin kadar genişlemesini sağlar */
+}
+
+    button:active {
+        transform: translateY(4px);
+        box-shadow: none;
     }
 
     .hidden { display: none; }
+
+     /* "Sonraki Soru" butonu için özel vurgu */
+#nextBtn {
+    background: var(--success); /* Yeşil renk */
+    box-shadow: 0 6px 0 #27ae60;
+    animation: pulse-green 1.5s infinite; /* Sürekli büyüme/küçülme efekti */
+}
+
+#nextBtn:hover {
+    background: #27ae60;
+    transform: scale(1.05);
+}
+
+/* Dikkat çekici nabız animasyonu */
+@keyframes pulse-green {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(46, 204, 113, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+    }
+}
+/* Vurgulu kelime stili */
+.highlight {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+}
+
+/* Kilitli picker sütunu */
+.picker-column.locked {
+    pointer-events: none;
+    opacity: 0.2;
+    filter: grayscale(1);
+}
+
+/* Aktif picker sütunu */
+.picker-column.active-stage {
+    pointer-events: auto;
+    opacity: 1;
+    filter: none;
+    border: 3px solid var(--primary);
+}
+
+/* --- Renk Animasyonları Tanımları --- */
+@keyframes pulse-red { 0%, 100% { color: #e74c3c; } 50% { color: #ff7675; } }
+@keyframes pulse-blue { 0%, 100% { color: #3498db; } 50% { color: #74b9ff; } }
+@keyframes pulse-green { 0%, 100% { color: #2ecc71; } 50% { color: #55efc4; } }
+
+/* --- Kelime Sınıfları --- */
+.flash-red { 
+    animation: pulse-red 1.5s infinite ease-in-out; 
+    display: inline; 
+    font-weight: normal;
+}
+
+.flash-blue { 
+    animation: pulse-blue 1.5s infinite ease-in-out; 
+    display: inline; 
+    font-weight: normal;
+}
+
+.flash-green { 
+    animation: pulse-green 1.5s infinite ease-in-out; 
+    display: inline; 
+    font-weight: normal;
+}
+
+/* --- Sabit Kelimeler (Fiil, Harfi Cerler ve Nokta) --- */
+.static-word {
+    display: inline;
+    color: #7f8c8d; /* Dikkat dağıtmaması için hafif gri */
+}
+
+/* --- Genel Cümle Kutusu Düzenlemesi (Opsiyonel) --- */
+.sentence-box {
+    direction: rtl;
+    unicode-bidi: isolate; /* Arapça karakterlerin ve noktanın doğru hizalanması için */
+}
+
+
+.sentence-box {
+    line-height: 1.6;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* --- Boşluk Kontrolü Yaması --- */
+.sentence-box {
+    gap: 0 !important; /* Otomatik boşlukları tamamen kapat */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tüm kelimelere standart sağ boşluk ver (RTL olduğu için sol taraf boşluk olur) */
+.flash-red, .flash-blue, .flash-green, .static-word {
+    display: inline-block;
+    margin-left: 25px; /* Kelimeler arası boşluk */
+    vertical-align: middle;
+}
+
+/* Araç kelimesi ve Nokta için özel yapıştırma kuralları */
+.no-margin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.home-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--primary);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    text-decoration: none;
+    border: 1px solid #eee;
+}
+
+.home-button:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Giriş ekranındaki butonun yayılmasını engellemek için (önceki konuşmamızdaki düzeltme) */
+#startScreen button {
+    align-self: center;
+    width: fit-content;
+    min-width: 150px;
+}
 </style>
 </head>
 <body>
+<div class="game-card" id="startScreen">
+    <!-- Ana Sayfa Butonu -->
+    <a href="index.html" class="home-button">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
 
-<div class="game-card" id="gameScreen">
-    <a href="index.html" class="back-button">
+    <h1>لُعْبَة السَّفَر </h1>
+    <button onclick="startGame()">اِبْدَأ</button>
+</div>
+
+<!-- OYUN SAYFASI -->
+<div class="game-card hidden" id="gameScreen">
+    <a href="#" onclick="location.reload()" class="back-button">
         <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
     </a>
+
+    <!-- Her soruda görünecek Yönerge -->
+   <div class="instructions" style="font-size: 2.5rem; font-weight: bold; text-align: center; direction: rtl; margin-bottom: 10px;">
+    💡 <b>اِخْتَر الصّور المُناسِبَة لِلْجُمْلَة.</b>
+</div>
+
     <div class="progress-container" id="progressBar">
         <div class="progress-step"></div>
         <div class="progress-step"></div>
@@ -215,16 +419,19 @@
 
     <div class="controls">
         <button id="checkBtn" onclick="checkAnswer()">تَأْكيد</button>
-        <button id="nextBtn" class="hidden" onclick="nextQuestion()">السُّؤال التّالي</button>
+        <button id="nextBtn" class="hidden" onclick="nextQuestion()">السُّؤال التّالي</button>
     </div>
 </div>
 
+<!-- BİTİŞ EKRANI -->
 <div class="game-card hidden" id="nextStudentScreen">
     <h2 style="font-size: 3rem; color: var(--success);">أَحْسَنْت! 🎉</h2>
     <p style="font-size: 1.5rem;">لَقَد أَكْمَلْت جَميع الأَسْئِلَة.</p>
     <button onclick="resetGame()">تَغْيير الطالب</button>
 </div>
 
+<!-- Ses Efektleri -->
+<audio id="soundGuide" src="yonergeseyahat.mp3"></audio>
 <audio id="soundCorrect" src="https://freesound.org/data/previews/270/270402_5123851-lq.mp3" crossorigin="anonymous"></audio>
 <audio id="soundWrong" src="https://freesound.org/data/previews/415/415764_6081716-lq.mp3" crossorigin="anonymous"></audio>
 
@@ -232,43 +439,45 @@
     let currentQuestion = 0;
     let questions = [];
 
-    // Mantıklı senaryolardan oluşan 15 hazır cümle
-    const presetSentences = [
-        { p: "أَبي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى البَحْر", t: "بِالسَّيّارَة.", g: "m" },
-        { p: "أُمّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الكَعْبَة", t: "بِالطّائِرَة.", g: "f" },
-        { p: "أَخي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الحَديقَة", t: "بِالدَّرّاجَة.", g: "m" },
-        { p: "أُخْتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى المَكْتَبَة", t: "بِالسَّيّارَة.", g: "f" },
-        { p: "جَدّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الجَبَل", t: "بِالدَّرّاجَة.", g: "m" },
-        { p: "جَدَّتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى السّوق", t: "بِالسَّيّارَة.", g: "f" },
-        { p: "أَبي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى إِسْطَنْبول", t: "بِالطّائِرَة.", g: "m" },
-        { p: "أَخي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى البَحْر", t: "بِالسَّيّارَة.", g: "m" },
-        { p: "أُخْتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الحَديقَة", t: "بِالحافِلَة.", g: "f" },
-        { p: "أُمّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى المَكْتَبَة", t: "بِالدَّرّاجَة.", g: "f" },
-        { p: "جَدّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى السّوق", t: "بِالحافِلَة.", g: "m" },
-        { p: "أَخي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الجَبَل", t: "بِالدَّرّاجَة.", g: "m" },
-        { p: "أَبي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الكَعْبَة", t: "بِالسَّفينَة.", g: "m" },
-        { p: "جَدَّتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى إِسْطَنْبول", t: "بِالحافِلَة.", g: "f" },
-        { p: "أُخْتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى البَحْر", t: "بِالمَتْرو.", g: "f" }
-    ];
+    // 1. Veri setindeki noktaları temizliyoruz (daha temiz bir birleştirme için)
+const presetSentences = [
+    { p: "أَبي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى البَحْر", t: "بِالسَّيّارَة", g: "m" },
+    { p: "أُمّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الكَعْبَة", t: "بِالطّائِرَة", g: "f" },
+    { p: "أَخي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الحَديقَة", t: "بِالدَّرّاجَة", g: "m" },
+    { p: "أُخْتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى المَكْتَبَة", t: "بِالسَّيّارَة", g: "f" },
+    { p: "جَدّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الجَبَل", t: "بِالدَّرّاجَة", g: "m" },
+    { p: "جَدَّتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى السّوق", t: "بِالسَّيّارَة", g: "f" },
+    { p: "أَبي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى إِسْطَنْبول", t: "بِالطّائِرَة", g: "m" },
+    { p: "أَخي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى البَحْر", t: "بِالسَّيّارَة", g: "m" },
+    { p: "أُخْتي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى الحَديقَة", t: "بِالحافِلَة", g: "f" },
+    { p: "أُمّي", v_m: "يَذْهَبُ", v_f: "تَذْهَبُ", l: "إِلى المَكْتَبَة", t: "بِالدَّرّاجَة", g: "f" }
+];
 
-    const data = {
-        persons: [
-            {ar: "أَبي", emoji: "👨"}, {ar: "أُمّي", emoji: "👩"},
-            {ar: "أَخي", emoji: "👦"}, {ar: "أُخْتي", emoji: "👧"},
-            {ar: "جَدّي", emoji: "👴"}, {ar: "جَدَّتي", emoji: "👵"}
-        ],
-        places: [
-            {ar: "إِلى البَحْر", emoji: "🌊"}, {ar: "إِلى الكَعْبَة", emoji: "🕋"},
-            {ar: "إِلى السّوق", emoji: "🛍️"}, {ar: "إِلى الحَديقَة", emoji: "🌳"},
-            {ar: "إِلى الجَبَل", emoji: "⛰️"}, {ar: "إِلى المَكْتَبَة", emoji: "📚"},
-            {ar: "إِلى إِسْطَنْبول", emoji: "🌉"}
-        ],
-        transports: [
-            {ar: "بِالطّائِرَة.", emoji: "✈️"}, {ar: "بِالسَّيّارَة.", emoji: "🚗"},
-            {ar: "بِالحافِلَة.", emoji: "🚌"}, {ar: "بِالسَّفينَة.", emoji: "🚢"},
-            {ar: "بِالدَّرّاجَة.", emoji: "🚲"}, {ar: "بِالمَتْرو.", emoji: "🚊"},
-        ]
-    };
+   const data = {
+    persons: [{ar: "أَبي", emoji: "👨"}, {ar: "أُمّي", emoji: "👩"}, {ar: "أَخي", emoji: "👦"}, {ar: "أُخْتي", emoji: "👧"}, {ar: "جَدّي", emoji: "👴"}, {ar: "جَدَّتي", emoji: "👵"}],
+    places: [{ar: "إِلى البَحْر", emoji: "🌊"}, {ar: "إِلى الكَعْبَة", emoji: "🕋"}, {ar: "إِلى السّوق", emoji: "🛍️"}, {ar: "إِلى الحَديقَة", emoji: "🌳"}, {ar: "إِلى الجَبَل", emoji: "⛰️"}, {ar: "إِلى المَكْتَبَة", emoji: "📚"}, {ar: "إِلى إِسْطَنْبول", emoji: "🌉"}],
+    transports: [
+        {ar: "بِالطّائِرَة", emoji: "✈️"}, 
+        {ar: "بِالسَّيّارَة", emoji: "🚗"}, 
+        {ar: "بِالحافِلَة", emoji: "🚌"}, 
+        {ar: "بِالسَّفينَة", emoji: "🚢"}, 
+        {ar: "بِالدَّرّاجَة", emoji: "🚲"}, 
+        {ar: "بِالمَتْرو", emoji: "🚊"}
+    ] // Sonundaki noktalar kaldırıldı
+};
+
+    function startGame() {
+        document.getElementById('startScreen').classList.add('hidden');
+        document.getElementById('gameScreen').classList.remove('hidden');
+        
+        // Yönerge sesini çal
+        const guideAudio = document.getElementById('soundGuide');
+        guideAudio.play().catch(e => console.log("Ses çalınamadı (Etkileşim gerekiyor)"));
+        
+        initPickers();
+        generateRound();
+        spinPickers();
+    }
 
     function initPickers() {
         fillColumn('person-picker', data.persons);
@@ -301,64 +510,35 @@
         col.innerHTML = combined.map(item => 
             `<div class="picker-item" data-val="${item.ar}">${item.emoji}</div>`
         ).join('');
-
         setTimeout(() => { col.scrollTop = 120 * 3; }, 10);
     }
 
-function spinPickers() {
-    const columns = document.querySelectorAll('.picker-column');
-    columns.forEach((col, index) => {
-        col.style.scrollSnapType = 'none';
-        col.style.overflowY = 'hidden';
-        
-        // Rastgele süre ekleyerek (opsiyonel) çarkların farklı zamanlarda durmasını sağlayabilirsin
-        const duration = 2 + Math.random(); // 2 ile 3 saniye arası
-        
-        const items = col.querySelectorAll('.picker-item');
-        const isMiddle = index === 1;
-        const animationName = isMiddle ? 'spinUp' : 'spinDown';
+    function spinPickers() {
+        document.querySelectorAll('.picker-column').forEach((col, index) => {
+            col.style.scrollSnapType = 'none';
+            col.style.overflowY = 'hidden';
+            const duration = 2 + Math.random();
+            const items = col.querySelectorAll('.picker-item');
+            const animationName = index === 1 ? 'spinUp' : 'spinDown';
 
-        items.forEach(item => {
-            // Süreyi dinamik yaptık (2.5s yerine 'duration' değişkeni)
-            item.style.animation = `${animationName} ${duration}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+            items.forEach(item => {
+                item.style.animation = `${animationName} ${duration}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+            });
+            setTimeout(() => { stopAndRelease(col); }, duration * 1000);
         });
+    }
 
-        // Animasyon bitince durdur ve rastgele bir öğeye odakla
-        setTimeout(() => { stopAndRelease(col); }, duration * 1000);
-        
-        const releaseAction = () => stopAndRelease(col);
-        col.addEventListener('touchstart', releaseAction, {once: true});
-        col.addEventListener('mousedown', releaseAction, {once: true});
-    });
-}
-
-function stopAndRelease(col) {
-    // Eğer zaten durmuşsa tekrar çalıştırma
-    if (col.style.overflowY === 'scroll') return;
-
-    const itemHeight = 120;
-    const items = col.querySelectorAll('.picker-item');
-    
-    // 1. Animasyonları temizle ama transform'u sıfırlama (görsel atlamayı önlemek için)
-    items.forEach(item => {
-        item.style.animation = 'none';
-    });
-
-    // 2. MANTIK: Rastgele bir öğe seç (Klonlar hariç gerçek öğeler: index 3 ile total-3 arası)
-    const totalItems = items.length;
-    const realItemsCount = totalItems - 6; 
-    const randomIndex = Math.floor(Math.random() * realItemsCount) + 3;
-
-    // 3. Çarkı rastgele seçilen öğeye "ışınla"
-    col.style.overflowY = 'scroll';
-    col.scrollTop = randomIndex * itemHeight;
-
-    // 4. Hizalamayı (Snap) geri getir ki en yakın emojiyi otomatik ortalasın
-    col.style.scrollSnapType = 'y mandatory';
-    
-    // 5. Hangi öğenin aktif olduğunu güncelle
-    updateActiveItem(col);
-}
+    function stopAndRelease(col) {
+        if (col.style.overflowY === 'scroll') return;
+        const itemHeight = 120;
+        const items = col.querySelectorAll('.picker-item');
+        items.forEach(item => item.style.animation = 'none');
+        const randomIndex = Math.floor(Math.random() * (items.length - 6)) + 3;
+        col.style.overflowY = 'scroll';
+        col.scrollTop = randomIndex * itemHeight;
+        col.style.scrollSnapType = 'y mandatory';
+        updateActiveItem(col);
+    }
 
     function updateActiveItem(col) {
         const items = col.querySelectorAll('.picker-item');
@@ -380,24 +560,47 @@ function stopAndRelease(col) {
     }
 
     function generateRound() {
-        // Havuzdan rastgele 3 farklı cümle seç
-        const shuffled = [...presetSentences].sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, 3);
+    const shuffled = [...presetSentences].sort(() => 0.5 - Math.random());
+    questions = shuffled.slice(0, 3).map(item => {
+        const verb = item.g === 'm' ? item.v_m : item.v_f;
+        // Temizlik: Gelen veride nokta varsa siliyoruz
+        const transportClean = item.t.replace(/\./g, '').trim();
         
-        questions = selected.map(item => ({
-            sentence: `${item.p} ${item.g === 'm' ? item.v_m : item.v_f} ${item.l} ${item.t}`,
-            p: item.p,
-            l: item.l,
-            t: item.t
-        }));
-        showQuestion();
-    }
+        return {
+            // Ekranda görünen: "يَذْهَبُ أَبي إِلى البَحْر بِالسَّيّارَة."
+            sentence: `${verb} ${item.p} ${item.l} ${transportClean}.`, 
+            // Kontrol için saklanan saf kelimeler
+            p: item.p.trim(), 
+            l: item.l.trim(), 
+            t: transportClean
+        };
+    });
+    showQuestion();
+}
 
-    function showQuestion() {
-        const box = document.getElementById('targetSentence');
-        box.innerText = questions[currentQuestion].sentence;
-        resetUI();
-    }
+function showQuestion() {
+    const q = questions[currentQuestion];
+    const targetBox = document.getElementById('targetSentence');
+    
+    // Fiili al
+    const verb = q.sentence.split(' ')[0];
+    
+    // Mekan kısmından "إِلى" temizle
+    let cleanPlace = q.l.replace(/^إِلى\s+/, '').trim();
+
+    // HTML Dizilimi: 
+    // flash-green kelimesine 'no-margin' verdik ki noktaya yaklaşsın.
+    // Noktaya da 'no-margin' verdik ki arada boşluk kalmasın.
+    targetBox.innerHTML = `
+        <span class="static-word">${verb}</span>
+        <span class="flash-red">${q.p}</span>
+        <span class="static-word">إِلى</span>
+        <span class="flash-blue">${cleanPlace}</span>
+        <span class="flash-green no-margin">${q.t}</span><span class="static-word no-margin">.</span>
+    `;
+    
+    resetUI();
+}
 
     function resetUI() {
         document.querySelectorAll('.picker-column').forEach(c => c.classList.remove('correct', 'wrong'));
@@ -405,31 +608,47 @@ function stopAndRelease(col) {
         document.getElementById('nextBtn').classList.add('hidden');
     }
 
-    function checkAnswer() {
-        const q = questions[currentQuestion];
-        const selP = document.querySelector('#person-picker .picker-item.active')?.getAttribute('data-val');
-        const selL = document.querySelector('#place-picker .picker-item.active')?.getAttribute('data-val');
-        const selT = document.querySelector('#transport-picker .picker-item.active')?.getAttribute('data-val');
+function checkAnswer() {
+    const q = questions[currentQuestion];
+    
+    const selP = document.querySelector('#person-picker .picker-item.active')?.getAttribute('data-val');
+    const selL = document.querySelector('#place-picker .picker-item.active')?.getAttribute('data-val');
+    const selT = document.querySelector('#transport-picker .picker-item.active')?.getAttribute('data-val');
 
-        const isP = selP === q.p;
-        const isL = selL === q.l;
-        const isT = selT === q.t;
+    // Her şeyi temizleyen fonksiyon (Noktalar ve boşluklar gider)
+    const clean = (str) => str ? str.replace(/\./g, '').trim() : "";
 
-        document.getElementById('person-picker').classList.add(isP ? 'correct' : 'wrong');
-        document.getElementById('place-picker').classList.add(isL ? 'correct' : 'wrong');
-        document.getElementById('transport-picker').classList.add(isT ? 'correct' : 'wrong');
+    const isP = clean(selP) === clean(q.p);
+    const isL = clean(selL) === clean(q.l);
+    const isT = clean(selT) === clean(q.t);
 
-        const step = document.querySelectorAll('.progress-step')[currentQuestion];
-        if (isP && isL && isT) {
-            document.getElementById('soundCorrect').play().catch(() => {});
-            step.style.background = 'var(--success)';
-            document.getElementById('checkBtn').classList.add('hidden');
-            document.getElementById('nextBtn').classList.remove('hidden');
-        } else {
-            document.getElementById('soundWrong').play().catch(() => {});
-            step.style.background = 'var(--error)';
-        }
+    // Görsel geri bildirim
+    const pCol = document.getElementById('person-picker');
+    const lCol = document.getElementById('place-picker');
+    const tCol = document.getElementById('transport-picker');
+
+    pCol.classList.remove('correct', 'wrong');
+    lCol.classList.remove('correct', 'wrong');
+    tCol.classList.remove('correct', 'wrong');
+
+    // CSS sınıflarını ekle (Hangi sütun yanlışsa o kırmızı yanar)
+    pCol.classList.add(isP ? 'correct' : 'wrong');
+    lCol.classList.add(isL ? 'correct' : 'wrong');
+    tCol.classList.add(isT ? 'correct' : 'wrong');
+
+    const step = document.querySelectorAll('.progress-step')[currentQuestion];
+    
+    if (isP && isL && isT) {
+        document.getElementById('soundCorrect').play().catch(() => {});
+        step.style.background = 'var(--success)';
+        document.getElementById('checkBtn').classList.add('hidden');
+        document.getElementById('nextBtn').classList.remove('hidden');
+    } else {
+        document.getElementById('soundWrong').play().catch(() => {});
+        step.style.background = 'var(--error)';
+        // Yanlış olduğunda sütunların hafifçe titremesi için 'wrong' class'ı zaten CSS'de var
     }
+}
 
     function nextQuestion() {
         currentQuestion++;
@@ -446,14 +665,8 @@ function stopAndRelease(col) {
         currentQuestion = 0;
         document.querySelectorAll('.progress-step').forEach(s => s.style.background = '#ddd');
         document.getElementById('nextStudentScreen').classList.add('hidden');
-        document.getElementById('gameScreen').classList.remove('hidden');
-        generateRound();
-        spinPickers();
+        startGame(); // startGame çağrıldığında yönerge sesi tekrar çalacaktır
     }
-
-    initPickers();
-    generateRound();
-    spinPickers();
 </script>
 </body>
 </html>
