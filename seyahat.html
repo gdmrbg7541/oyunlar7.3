@@ -226,7 +226,7 @@
 #nextBtn {
     background: var(--success); /* Yeşil renk */
     box-shadow: 0 6px 0 #27ae60;
-    animation: pulse-green 1.5s infinite; /* Sürekli büyüme/küçülme efekti */
+    animation: btn-pulse 1.5s infinite;
 }
 
 #nextBtn:hover {
@@ -234,8 +234,8 @@
     transform: scale(1.05);
 }
 
-/* Dikkat çekici nabız animasyonu */
-@keyframes pulse-green {
+/* Butona Özel Nabız Animasyonu (İsmi değiştirildi) */
+@keyframes btn-pulse {
     0% {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
@@ -371,6 +371,13 @@
     align-self: center;
     width: fit-content;
     min-width: 150px;
+}
+
+/* Onay ve Sonraki Soru butonlarını aynı boyuta getirme */
+#checkBtn, #nextBtn {
+    padding: 10px 40px; /* Her ikisi için de aynı iç boşluk */
+    font-size: 2rem;    /* Her ikisi için de aynı yazı boyutu */
+    color: white;       /* Yazı renginin kesinlikle beyaz olmasını sağlar */
 }
 </style>
 </head>
