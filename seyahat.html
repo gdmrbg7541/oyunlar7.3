@@ -435,6 +435,8 @@
 <audio id="soundCorrect" src="https://freesound.org/data/previews/270/270402_5123851-lq.mp3" crossorigin="anonymous"></audio>
 <audio id="soundWrong" src="https://freesound.org/data/previews/415/415764_6081716-lq.mp3" crossorigin="anonymous"></audio>
 
+<audio id="soundSpin" src="kadran.m4a"></audio>
+
 <script>
     let currentQuestion = 0;
     let questions = [];
@@ -514,19 +516,38 @@ const presetSentences = [
     }
 
     function spinPickers() {
-        document.querySelectorAll('.picker-column').forEach((col, index) => {
-            col.style.scrollSnapType = 'none';
-            col.style.overflowY = 'hidden';
-            const duration = 2 + Math.random();
-            const items = col.querySelectorAll('.picker-item');
-            const animationName = index === 1 ? 'spinUp' : 'spinDown';
+    // Çark sesini başlat
+    const spinAudio = document.getElementById('soundSpin');
+    spinAudio.currentTime = 0; // Sesi başa sar
+    spinAudio.play().catch(() => {}); // Kullanıcı etkileşimi yoksa hata vermesini engelle
 
-            items.forEach(item => {
-                item.style.animation = `${animationName} ${duration}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
-            });
-            setTimeout(() => { stopAndRelease(col); }, duration * 1000);
+    let maxDuration = 0; // En uzun dönme süresini bulmak için
+
+    document.querySelectorAll('.picker-column').forEach((col, index) => {
+        col.style.scrollSnapType = 'none';
+        col.style.overflowY = 'hidden';
+        
+        const duration = 2 + Math.random();
+        if (duration > maxDuration) {
+            maxDuration = duration; // En geç duracak sütunun süresini kaydet
+        }
+
+        const items = col.querySelectorAll('.picker-item');
+        const animationName = index === 1 ? 'spinUp' : 'spinDown';
+
+        items.forEach(item => {
+            item.style.animation = `${animationName} ${duration}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
         });
-    }
+        
+        setTimeout(() => { stopAndRelease(col); }, duration * 1000);
+    });
+
+    // En son çark durduğunda sesi de durdur
+    setTimeout(() => {
+        spinAudio.pause();
+        spinAudio.currentTime = 0;
+    }, maxDuration * 1000);
+}
 
     function stopAndRelease(col) {
         if (col.style.overflowY === 'scroll') return;
