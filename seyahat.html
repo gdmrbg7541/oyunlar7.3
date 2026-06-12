@@ -385,7 +385,7 @@
     </a>
 
     <h1>لُعْبَة السَّفَر </h1>
-    <button onclick="startGame()">اِبْدَأ</button>
+    <button onclick="startGame()">اِبْدَأْ</button>
 </div>
 
 <!-- OYUN SAYFASI -->
@@ -440,6 +440,50 @@
 <script>
     let currentQuestion = 0;
     let questions = [];
+
+     // Web Audio API için ses bağlamı oluştur
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playTone(type) {
+    // Tarayıcı kısıtlamalarını aşmak için ses bağlamını uyandır
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    oscillator.type = 'sine'; // Sinüs dalgası
+    const now = audioCtx.currentTime;
+    
+    if (type === 'correct') {
+        // Doğru Sesi: 440Hz'den 880Hz'e doğru neşeli ve hızlı bir artış
+        oscillator.frequency.setValueAtTime(440, now);
+        oscillator.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+        
+        // Ses patlamasını (click) önlemek için yumuşak azalış
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.5, now + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        
+        oscillator.start(now);
+        oscillator.stop(now + 0.3);
+    } else {
+        // Yanlış Sesi: 300Hz'den 150Hz'e doğru üzgün bir düşüş
+        oscillator.frequency.setValueAtTime(300, now);
+        oscillator.frequency.exponentialRampToValueAtTime(150, now + 0.2);
+        
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.5, now + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        
+        oscillator.start(now);
+        oscillator.stop(now + 0.4);
+    }
+}
 
     // 1. Veri setindeki noktaları temizliyoruz (daha temiz bir birleştirme için)
 const presetSentences = [
@@ -660,14 +704,17 @@ function checkAnswer() {
     const step = document.querySelectorAll('.progress-step')[currentQuestion];
     
     if (isP && isL && isT) {
-        document.getElementById('soundCorrect').play().catch(() => {});
+        // Sinüs dalgası ile doğru sesi çal
+        playTone('correct');
+        
         step.style.background = 'var(--success)';
         document.getElementById('checkBtn').classList.add('hidden');
         document.getElementById('nextBtn').classList.remove('hidden');
     } else {
-        document.getElementById('soundWrong').play().catch(() => {});
+        // Sinüs dalgası ile yanlış sesi çal
+        playTone('wrong');
+        
         step.style.background = 'var(--error)';
-        // Yanlış olduğunda sütunların hafifçe titremesi için 'wrong' class'ı zaten CSS'de var
     }
 }
 
