@@ -428,7 +428,7 @@ body, button, div, span {
         <h1 class="start-title">لُعْبَة الذّاكِرَة</h1>
 
         <p style="font-size: 2.5rem; color: var(--primary-color); margin-top: -10px; margin-bottom: 20px; font-family: 'Arakom', sans-serif !important;">
-            .اِخْتَر اللُّعْبَة، ثُمّ جِد الكَلِمات وَالصُّوَر المُتَطابِقَة
+            .اِخْتَر اللُّعْبَة، ثُمَّ جِد الكَلِمات وَالصُّوَر المُتَطابِقَة
         </p>
 
         <div class="start-options">
@@ -471,7 +471,7 @@ const Data = {
   { id: 1, arabic: 'دَرّاجَة', turkish: '1.jpeg' },
   { id: 2, arabic: 'سَفينَة', turkish: '2.jpeg' },
   { id: 3, arabic: 'مِتْرو', turkish: '3.jpeg' },
-  { id: 4, arabic: 'حافلَة', turkish: '4.jpeg' },
+  { id: 4, arabic: 'حافِلَة', turkish: '4.jpeg' },
   { id: 5, arabic: 'طائِرَة', turkish: '5.jpeg' },
   { id: 6, arabic: 'سَيّارَة', turkish: '6.jpeg' },
   { id: 7, arabic: 'إِشارَات المُرور', turkish: '7.jpeg' },
@@ -738,7 +738,10 @@ populateBoard(cards){
         // img etiketi kartı tam kaplayacak şekilde ayarlandı
        contentHtml = `<img src="${cd.content}">`;
       } else {
-        const fontStyle = cd.lang==='ar' ? "font-family:'Arakom',sans-serif;" : "";
+        // Sadece Arapça (ar) metinler için font boyutunu clamp ile devasa/okunabilir hale getirdik.
+        const fontStyle = cd.lang==='ar' 
+            ? "font-family:'Arakom',sans-serif; font-size: clamp(2rem, 20cqw, 4.5rem);" 
+            : "";
         contentHtml = `<span style="${fontStyle}">${cd.content}</span>`;
       }
 
@@ -845,7 +848,7 @@ const WordCardGame = {
                 </button>
             </div>
             <div id="game-container-inner" style="display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box;">
-                <h2 class="game-instruction-title" style="margin: 0 0 10px 0; flex-shrink: 0; font-size: 2.5rem;">اُنْظُرْ إِلى الصّورَة، خَمِّن المَعْنى، ثُمَّ اِضْغَطْ‫.‬</h2>
+                <h2 class="game-instruction-title" style="margin: 0 0 10px 0; flex-shrink: 0; font-size: 2.5rem;">اُنْظُرْ إِلى الصّورَة، خَمِّن المَعْنى، ثُمَّ اضْغَطْ‫.‬</h2>
                 <div id="game-board" style="display: grid; width: 100%; height: 100%; max-height: 75vh; gap: 12px; justify-content: center; align-content: center;"></div>
                
         `;
