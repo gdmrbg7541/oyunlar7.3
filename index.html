@@ -23,6 +23,7 @@
             padding: 0;
         }
 
+        /* SEYAHAT KONSEPTİ */
         body {
             font-family: 'Arakom', 'Segoe UI', Tahoma, sans-serif; 
             background-color: #f0f9ff;
@@ -38,7 +39,7 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            padding: 3vh 3vw;
+            padding: 2vh 2vw; /* Boşluklar mobilde daha dar olması için kısıldı */
             overflow-x: hidden; 
             position: relative;
         }
@@ -55,8 +56,7 @@
 
         .floating-emojis span {
             position: absolute;
-            opacity: 0.25; /* Görünürlük artırıldı */
-            /* filter: grayscale(); Tamamen kaldırıldı, artık tam renkli */
+            opacity: 0.25; 
             animation: float ease-in-out infinite alternate;
         }
 
@@ -65,20 +65,20 @@
             100% { transform: translateY(-25px) rotate(12deg) scale(1.05); }
         }
 
-        /* Merkez (Kartların olduğu alan) boş bırakılarak emojiler kenarlara dağıtıldı */
-        .em-1 { top: 4%; left: 3%; font-size: clamp(3rem, 6vw, 5rem); animation-duration: 12s; animation-delay: 0s; } /* Uçak */
-        .em-2 { top: 6%; right: 4%; font-size: clamp(3.5rem, 7vw, 6rem); animation-duration: 15s; animation-delay: -2s; } /* Aile */
-        .em-3 { top: 35%; left: 2%; font-size: clamp(2.5rem, 5vw, 4.5rem); animation-duration: 14s; animation-delay: -5s; } /* Tren */
-        .em-4 { top: 40%; right: 2%; font-size: clamp(4rem, 8vw, 6.5rem); animation-duration: 18s; animation-delay: -3s; } /* Cami/Mekan */
-        .em-5 { top: 75%; left: 4%; font-size: clamp(3.5rem, 7vw, 5.5rem); animation-duration: 13s; animation-delay: -7s; } /* Plaj */
-        .em-6 { top: 72%; right: 5%; font-size: clamp(3rem, 6vw, 4.5rem); animation-duration: 16s; animation-delay: -1s; } /* Gemi */
-        .em-7 { top: 18%; left: 12%; font-size: clamp(2rem, 4vw, 3.5rem); animation-duration: 11s; animation-delay: -4s; } /* Kamera */
-        .em-8 { top: 22%; right: 10%; font-size: clamp(2.5rem, 5vw, 4rem); animation-duration: 17s; animation-delay: -6s; } /* Valiz */
-        .em-9 { top: 88%; left: 15%; font-size: clamp(2rem, 4vw, 3.5rem); animation-duration: 14s; animation-delay: -2s; } /* Harita */
-        .em-10 { top: 85%; right: 18%; font-size: clamp(3rem, 6vw, 5rem); animation-duration: 19s; animation-delay: -8s; } /* Araba */
-        .em-11 { top: 3%; left: 25%; font-size: clamp(3.5rem, 7vw, 5.5rem); animation-duration: 15s; animation-delay: -3s; } /* Dağ/Kamp */
-        .em-12 { top: 4%; right: 28%; font-size: clamp(2.5rem, 5vw, 4.5rem); animation-duration: 12s; animation-delay: -9s; } /* Dede/Nine */
-        .em-13 { top: 55%; left: 8%; font-size: clamp(2.5rem, 5vw, 4rem); animation-duration: 16s; animation-delay: -5s; } /* Sırt Çantası */
+        /* Agresif küçülen seyahat emojileri */
+        .em-1 { top: 4%; left: 3%; font-size: clamp(2.5rem, 6vw, 5rem); animation-duration: 12s; animation-delay: 0s; } /* Uçak */
+        .em-2 { top: 6%; right: 4%; font-size: clamp(3rem, 7vw, 6rem); animation-duration: 15s; animation-delay: -2s; } /* Aile */
+        .em-3 { top: 35%; left: 2%; font-size: clamp(2rem, 5vw, 4.5rem); animation-duration: 14s; animation-delay: -5s; } /* Tren */
+        .em-4 { top: 40%; right: 2%; font-size: clamp(3.5rem, 8vw, 6.5rem); animation-duration: 18s; animation-delay: -3s; } /* Cami/Mekan */
+        .em-5 { top: 75%; left: 4%; font-size: clamp(3rem, 7vw, 5.5rem); animation-duration: 13s; animation-delay: -7s; } /* Plaj */
+        .em-6 { top: 72%; right: 5%; font-size: clamp(2.5rem, 6vw, 4.5rem); animation-duration: 16s; animation-delay: -1s; } /* Gemi */
+        .em-7 { top: 18%; left: 12%; font-size: clamp(1.8rem, 4vw, 3.5rem); animation-duration: 11s; animation-delay: -4s; } /* Kamera */
+        .em-8 { top: 22%; right: 10%; font-size: clamp(2rem, 5vw, 4rem); animation-duration: 17s; animation-delay: -6s; } /* Valiz */
+        .em-9 { top: 88%; left: 15%; font-size: clamp(1.8rem, 4vw, 3.5rem); animation-duration: 14s; animation-delay: -2s; } /* Harita */
+        .em-10 { top: 85%; right: 18%; font-size: clamp(2.5rem, 6vw, 5rem); animation-duration: 19s; animation-delay: -8s; } /* Araba */
+        .em-11 { top: 3%; left: 25%; font-size: clamp(3rem, 7vw, 5.5rem); animation-duration: 15s; animation-delay: -3s; } /* Dağ/Kamp */
+        .em-12 { top: 4%; right: 28%; font-size: clamp(2rem, 5vw, 4.5rem); animation-duration: 12s; animation-delay: -9s; } /* Dede/Nine */
+        .em-13 { top: 55%; left: 8%; font-size: clamp(2rem, 5vw, 4rem); animation-duration: 16s; animation-delay: -5s; } /* Sırt Çantası */
 
         .main-container {
             width: 100%;
@@ -86,16 +86,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: clamp(25px, 5vh, 45px); 
+            gap: clamp(15px, 4vh, 45px); /* Mobilde boşluklar daha agresif kısıldı */
             z-index: 10;
         }
 
         .header { 
             text-align: center; 
-            background: rgba(255, 255, 255, 0.85); /* Emojiler belirginleştiği için arka plan biraz daha matlaştırıldı */
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: clamp(20px, 4vw, 35px) clamp(25px, 6vw, 60px);
+            padding: clamp(15px, 4vw, 35px) clamp(15px, 6vw, 60px);
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 10px 40px rgba(14, 165, 233, 0.05);
@@ -104,20 +104,23 @@
             position: relative;
         }
 
+        /* --- BÜYÜTÜLMÜŞ ÜNİTE ROZETİ --- */
         .unit-badge {
             display: inline-block;
             background: linear-gradient(135deg, var(--secondary), #0284c7);
             color: white;
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
-            margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+            padding: clamp(8px, 2vw, 12px) clamp(20px, 5vw, 40px); /* Daha dolgun */
+            border-radius: 30px;
+            font-size: clamp(1.4rem, 4vw, 2.2rem); /* Çok daha büyük font */
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .header h1 { 
-            font-size: clamp(2.5rem, 6vw, 4.5rem); 
+            font-size: clamp(1.8rem, 7vw, 4.5rem); /* Minimum boyut agresif küçültüldü */
             color: var(--primary); 
             line-height: 1.2;
             margin-bottom: 5px;
@@ -125,28 +128,29 @@
 
         .header p { 
             color: var(--text-main); 
-            font-size: clamp(1.1rem, 3vw, 1.6rem); 
+            font-size: clamp(0.9rem, 4vw, 1.6rem); 
             opacity: 0.8;
         }
 
+        /* Kartlar İçin Agresif Esnek Izgara */
         .grid-container {
             display: flex;
             flex-wrap: wrap; 
             justify-content: center; 
             align-items: stretch;
             width: 100%;
-            gap: clamp(15px, 2.5vw, 30px);
+            gap: clamp(10px, 3vw, 25px); /* Mobilde kartlar arası boşluk kısıldı */
         }
 
         .game-card {
             position: relative;
             overflow: hidden; 
-            background: rgba(255, 255, 255, 0.85); /* Kartlar da okunabilirlik için matlaştırıldı */
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 2px solid rgba(255, 255, 255, 1);
-            border-radius: 30px; 
-            padding: clamp(15px, 3vw, 25px); 
+            border-radius: clamp(20px, 4vw, 30px); 
+            padding: clamp(10px, 4vw, 25px); /* Mobilde iç boşluklar agresif kısıldı */
             text-align: center;
             text-decoration: none; 
             color: var(--primary); 
@@ -157,10 +161,10 @@
             box-shadow: 0 8px 30px rgba(14, 165, 233, 0.04);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             
-            flex: 1 1 calc(45% - 30px);
+            flex: 1 1 calc(45% - 25px); /* 4 kart olduğu için 2x2 düzeni korur */
             max-width: 380px;
-            min-width: clamp(150px, 40%, 260px);
-            min-height: clamp(160px, 22vh, 200px);
+            min-width: clamp(120px, 35%, 240px); /* Mobilde daralır */
+            min-height: clamp(120px, 18vh, 190px);
             z-index: 1;
         }
 
@@ -169,7 +173,7 @@
             position: absolute;
             bottom: -5%;
             left: 3%; 
-            font-size: clamp(6rem, 15vw, 11rem); 
+            font-size: clamp(4rem, 12vw, 10rem); /* Dev rakamlar mobilde hızla küçülür */
             font-family: 'Georgia', 'Times New Roman', serif;
             font-style: italic;
             font-weight: 900;
@@ -197,16 +201,16 @@
         }
 
         .icon-circle {
-            width: clamp(65px, 12vw, 90px); 
-            height: clamp(65px, 12vw, 90px); 
+            width: clamp(45px, 10vw, 85px); /* Mobilde ikon kutusu iyice küçülür */
+            height: clamp(45px, 10vw, 85px); 
             background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240, 249, 255, 0.6));
             border: 2px solid rgba(255,255,255,1);
-            border-radius: 24px; 
+            border-radius: clamp(15px, 4vw, 24px); 
             display: flex; 
             align-items: center;
             justify-content: center; 
-            margin-bottom: 15px; 
-            font-size: clamp(2.4rem, 6vw, 3.5rem);
+            margin-bottom: clamp(8px, 2vw, 15px); 
+            font-size: clamp(1.6rem, 5vw, 3.2rem); /* İkon boyutu agresif küçülür */
             box-shadow: 0 5px 15px rgba(14, 165, 233, 0.08);
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -218,49 +222,49 @@
         }
 
         .game-card h2 { 
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-size: clamp(0.95rem, 4vw, 1.5rem); /* Mobilde başlık daha hızlı küçülür */
             font-weight: bold;
             line-height: 1.3;
         }
 
+        /* MOBİL EKRANLAR */
         @media (max-width: 768px) {
             .game-card { 
-                flex-basis: calc(50% - 15px);
-                border-radius: 25px;
+                flex-basis: calc(50% - 10px);
             }
             .game-card::before {
-                font-size: clamp(5.5rem, 18vw, 9rem); 
                 bottom: -8%;
             }
         }
 
+        /* ÇOK DAR EKRANLAR */
         @media (max-width: 400px) {
             .game-card {
                 flex-basis: 100%;
                 max-width: 100%;
-                min-height: 100px;
+                min-height: 80px;
                 flex-direction: row; 
-                gap: 15px;
-                padding: 15px 20px;
+                gap: 12px;
+                padding: 12px 15px;
                 justify-content: flex-start;
                 text-align: right;
             }
             .icon-circle {
                 margin-bottom: 0;
                 flex-shrink: 0;
-                width: 55px;
-                height: 55px;
-                font-size: 1.8rem;
-                border-radius: 18px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+                border-radius: 14px;
             }
             .game-card h2 {
                 margin-top: 0;
-                font-size: 1.25rem;
+                font-size: 1rem;
             }
             .game-card::before {
                 left: 5%;
-                bottom: -20%;
-                font-size: 6rem;
+                bottom: -25%;
+                font-size: 4.5rem;
             }
         }
     </style>
