@@ -332,22 +332,56 @@
 
     <script>
 const allQuestions = [
+    // --- NORMAL (EMOJİ EŞLEŞTİRME) SORULARI ---
 
-    // 3. Ünite - Ulaşım ve Seyahat Soruları (Yolculuk Şekli)
-    { text: "هَلْ تَسْكُنُ في إِسْطَنْبول؟", trueEmoji: "🌉", falseEmoji: "⛺" }, // İstanbul'da mı yaşıyorsun? -> Şehir / Çadır
-    { text: "هَلْ تَرْكَبُ الدَّرّاجَة؟", trueEmoji: "🚲", falseEmoji: "🚗" }, // Her sabah bisiklete biner misin? -> Bisiklet / Araba
-    { text: "هَلْ تُسافِرُ بِالطّائِرَة؟", trueEmoji: "✈️", falseEmoji: "🚌" }, // Ankara'ya uçakla mı seyahat edersin? -> Uçak / Otobüs
-    { text: "هَلْ تَرْجِعُ بِالقِطار؟", trueEmoji: "🚆", falseEmoji: "🚢" }, // İstanbul'a trenle mi dönersin? -> Tren / Gemi
-    { text: "هَلْ تَذْهَبُ مَشْيًا؟", trueEmoji: "🚶", falseEmoji: "🚕" }, // Kütüphaneye yürüyerek mi gidersin? -> Yürüyen İnsan / Taksi
-    { text: "هَلْ تَذْهَبينَ بِالحافِلَة؟", trueEmoji: "🚌", falseEmoji: "🚶‍♀️" }, // Okula otobüsle mi gidersin? (Dişil) -> Otobüs / Yürüyen Kadın
+    // Mevcut Sorularınız
+    { text: "هَلْ تَسْكُنُ في إِسْطَنْبول؟", trueEmoji: "🌉", falseEmoji: "⛺", isFixed: false },
+    { text: "هَلْ تَرْكَبُ الدَّرّاجَة؟", trueEmoji: "🚲", falseEmoji: "🚗", isFixed: false },
+    { text: "هَلْ تُسافِرُ بِالطّائِرَة؟", trueEmoji: "✈️", falseEmoji: "🚌", isFixed: false },
+    { text: "هَلْ تَرْجِعُ بِالقِطار؟", trueEmoji: "🚆", falseEmoji: "🚢", isFixed: false },
 
-    // 3. Ünite - Araç Özellikleri ve Karşılaştırmalar (Hızlı/Yavaş, Eski/Yeni)
-    { text: "هَل الحافِلَة قَديمَة؟", trueEmoji: "🏚️", falseEmoji: "✨" }, // Otobüs eski mi? -> Eski / Yeni(Parlak)
-    { text: "هَل السَّيّارَة حَديثَة؟", trueEmoji: "✨", falseEmoji: "🏚️" }, // Araba yeni/modern mi? -> Yeni / Eski
+    // Yeni Eklenenler: Ulaşım ve Mekanlar
+    // Kütüphaneye yürüyerek mi gidersin? [cite: 128]
+    { text: "هَلْ تَذْهَبُ إِلى المَكْتَبَة مَشْيًا؟", trueEmoji: "🚶", falseEmoji: "🚕", isFixed: false },
+    // Hastaneye arabayla mı gidersin? [cite: 125]
+    { text: "هَلْ تَذْهَبُ إِلى المُسْتَشْفى بِالسَّيّارَة؟", trueEmoji: "🚗", falseEmoji: "✈️", isFixed: false },
+    // Bursa'ya gemiyle mi seyahat edersin? [cite: 126]
+    { text: "هَلْ تُسافِرُ إِلى بورْصَة بِالسَّفينَة؟", trueEmoji: "🚢", falseEmoji: "🚆", isFixed: false },
+    // Kütüphaneye metroyla mı gidersin? (Dişil) [cite: 128]
+    { text: "هَلْ تَذْهَبينَ إِلى المَكْتَبَة بِالمِتْرو؟", trueEmoji: "🚇", falseEmoji: "🚲", isFixed: false },
+    // İzmir'e deniz yoluyla mı seyahat edersin? [cite: 128]
+    { text: "هَلْ تُسافِرُ إِلى إِزْمير بَحْرًا؟", trueEmoji: "🌊", falseEmoji: "🛣️", isFixed: false },
+    // Mardin'e kara yoluyla mı ulaşırsın? [cite: 129]
+    { text: "هَلْ تَصِلُ إِلى مارْدين بَرًّا؟", trueEmoji: "🛣️", falseEmoji: "✈️", isFixed: false },
+    // Otobüs eski mi? [cite: 129]
+    { text: "هَل الحافِلَة قَديمَة؟", trueEmoji: "🏚️", falseEmoji: "✨", isFixed: false },
+    // Araba modern/yeni mi? [cite: 129]
+    { text: "هَل السَّيّارَة حَديثَة؟", trueEmoji: "✨", falseEmoji: "🏚️", isFixed: false },
 
-    // 3. Ünite - Kurallar ve Yönler
-    { text: "هَل تَقِفُ عِنْد الضَّوء الأَحْمَر؟", trueEmoji: "🛑", falseEmoji: "🏃" }, // Kırmızı ışıkta durur musun? -> Dur İşareti / Koşan İnsan
-    { text: "هَل تَعْبُرُ عِنْد الضَّوء الأَخْضَر؟", trueEmoji: "✅", falseEmoji: "🛑" }  // Yeşil ışıkta geçer misin? -> Onay İşareti / Dur İşareti
+
+    // --- SABİT CEVAPLI (MANTIK / BİLGİ) SORULARI ---
+
+    // Mevcut Sorularınız
+    // Kırmızı ışıkta geçer misin? -> Kesinlikle HAYIR (false) [cite: 134]
+    { text: "هَل تَعْبُرُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: false },
+    // Yeşil ışıkta geçer misin? -> Kesinlikle EVET (true) [cite: 134]
+    { text: "هَل تَعْبُرُ عِنْد الضَّوء الأَخْضَر؟", emoji: "✅", isFixed: true, fixedAnswer: true },
+    // Kırmızı ışıkta durur musun? -> Kesinlikle EVET (true) [cite: 134]
+    { text: "هَل تَقِفُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: true },
+
+    // Yeni Eklenenler: Trafik Kuralları ve Karşılaştırmalar
+    // Sarı ışıkta geçer misin? -> Kesinlikle HAYIR (false) [cite: 134]
+    { text: "هَل تَعْبُرُ عِنْد الضَّوْء الأَصْفَر؟", emoji: "🟡", isFixed: true, fixedAnswer: false },
+    // Trafik işaretleri önemli midir? -> Kesinlikle EVET (true) [cite: 134]
+    { text: "هَلْ إِشارات المُرور مُهِمَّة؟", emoji: "🚦", isFixed: true, fixedAnswer: true },
+    // Uçak gemiden daha mı hızlıdır? -> Kesinlikle EVET (true) [cite: 130]
+    { text: "هَلْ الطّائِرَة أَسْرَع مِن السَّفينَة؟", emoji: "✈️", isFixed: true, fixedAnswer: true },
+    // Bisiklet trenden daha mı yavaştır? -> Kesinlikle EVET (true) [cite: 130]
+    { text: "هَلْ الدَّرّاجَة أَبْطَأ مِن القِطار؟", emoji: "🚲", isFixed: true, fixedAnswer: true },
+    // Tren otobüsten daha mı eskidir? -> Metne göre EVET (true) [cite: 129]
+    { text: "هَلْ القِطار أَقْدَم مِن الحافِلَة؟", emoji: "🚆", isFixed: true, fixedAnswer: true },
+    // Metro arabadan daha mı yenidir/moderndir? -> Metne göre EVET (true) [cite: 130]
+    { text: "هَل المِتْرو أَحْدَث مِن السَّيّارَة؟", emoji: "🚇", isFixed: true, fixedAnswer: true }
 ];
 
         let p1State = { index: 0, questions: [], currentAnswer: null };
@@ -462,11 +496,11 @@ const allQuestions = [
             let c1 = Math.random() > 0.5;
             let c2 = Math.random() > 0.5;
 
-            // 1. Oyuncu ayarları (Her iki modda da çalışır)
+            // 1. Oyuncu ayarları
             p1State.questions = [
-                { ...roundQuestions[0], expectedAnswer: c0 }, 
-                { ...roundQuestions[1], expectedAnswer: c1 }, 
-                { ...roundQuestions[2], expectedAnswer: c2 }
+                { ...roundQuestions[0], expectedAnswer: roundQuestions[0].isFixed ? roundQuestions[0].fixedAnswer : c0 }, 
+                { ...roundQuestions[1], expectedAnswer: roundQuestions[1].isFixed ? roundQuestions[1].fixedAnswer : c1 }, 
+                { ...roundQuestions[2], expectedAnswer: roundQuestions[2].isFixed ? roundQuestions[2].fixedAnswer : c2 }
             ];
             p1State.index = 0;
             document.getElementById('p1-text').style.color = '#2c3e50';
@@ -476,12 +510,13 @@ const allQuestions = [
             }
             loadQuestion('p1');
 
-            // 2. Oyuncu ayarları (Sadece İki Kişilik Modda çalışır)
+            // 2. Oyuncu ayarları
             if (currentGameMode === 2) {
                 p2State.questions = [
-                    { ...roundQuestions[2], expectedAnswer: !c2 }, 
-                    { ...roundQuestions[0], expectedAnswer: !c0 }, 
-                    { ...roundQuestions[1], expectedAnswer: !c1 }
+                    // Eğer sabit soruysa 2. oyuncu için de cevap aynı kalır, rastgele bir soruysa 1. oyuncunun zıttı atanır.
+                    { ...roundQuestions[2], expectedAnswer: roundQuestions[2].isFixed ? roundQuestions[2].fixedAnswer : !c2 }, 
+                    { ...roundQuestions[0], expectedAnswer: roundQuestions[0].isFixed ? roundQuestions[0].fixedAnswer : !c0 }, 
+                    { ...roundQuestions[1], expectedAnswer: roundQuestions[1].isFixed ? roundQuestions[1].fixedAnswer : !c1 }
                 ];
                 p2State.index = 0;
                 document.getElementById('p2-text').style.color = '#2c3e50';
@@ -507,13 +542,15 @@ const allQuestions = [
             }
 
             let q = state.questions[state.index];
-            
-            // Artık burada rastgele atama yapmıyoruz. 
-            // startGame içinde hazırladığımız o oyuncuya özel "expectedAnswer" (beklenen cevap) değerini kullanıyoruz.
             state.currentAnswer = q.expectedAnswer;
 
-            // Beklenen cevaba göre doğru emojiyi veya yanlış emojiyi gösteriyoruz
-            document.getElementById(`${playerStr}-emoji`).innerText = q.expectedAnswer ? q.trueEmoji : q.falseEmoji;
+            // YENİ: Soru sabitse doğrudan kendi emojisini göster, değilse rastgele duruma göre göster
+            if (q.isFixed) {
+                document.getElementById(`${playerStr}-emoji`).innerText = q.emoji;
+            } else {
+                document.getElementById(`${playerStr}-emoji`).innerText = q.expectedAnswer ? q.trueEmoji : q.falseEmoji;
+            }
+            
             document.getElementById(`${playerStr}-text`).innerText = q.text;
         }
 
