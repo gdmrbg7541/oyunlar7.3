@@ -70,6 +70,12 @@
             background-color: #45a049;
         }
 
+         .start-buttons {
+            display: flex;
+            gap: 30px; /* Butonlar arası boşluk */
+            justify-content: center;
+        }
+
         /* Oyun Ekranı Ana Kapsayıcı */
         #game-screen {
             display: none;
@@ -266,9 +272,12 @@
         <polyline points="9 22 9 12 15 12 15 22"></polyline>
     </svg>
 
-    <div id="start-screen">
+   <div id="start-screen">
         <h1>مُسابَقَة نَعَم أَو لا</h1>
-        <button class="main-btn" onclick="startGame()">اِبْدَأْ</button>
+        <div class="start-buttons">
+            <button class="main-btn" onclick="startGame(1)">لاعِب واحِد</button>
+            <button class="main-btn" onclick="startGame(2)">لاعِبان</button>
+        </div>
     </div>
 
     <div id="game-screen">
@@ -344,6 +353,7 @@ const allQuestions = [
         let p1State = { index: 0, questions: [], currentAnswer: null };
         let p2State = { index: 0, questions: [], currentAnswer: null };
         let currentScreenMode = 'home'; 
+        let currentGameMode = 2; // YENİ: Varsayılan oyun modu (1 veya 2)
         
         // Ses durumu yönetimi
         let audio = document.getElementById('yonergeAudio');
@@ -422,7 +432,9 @@ const allQuestions = [
             return array;
         }
 
-        function startGame() {
+        function startGame(mode) {
+            if (mode) currentGameMode = mode; // Seçilen modu kaydet
+
             playAudio(); 
 
             document.getElementById('start-screen').style.display = 'none';
@@ -431,44 +443,54 @@ const allQuestions = [
             
             updateNavIcon('back'); 
 
+            // YENİ: Tek kişi veya iki kişi moduna göre ekranı ayarla
+            const p1Side = document.getElementById('p1-side');
+            const p2Side = document.getElementById('p2-side');
+
+            if (currentGameMode === 1) {
+                p2Side.style.display = 'none'; // İkinci oyuncuyu gizle
+                p1Side.style.borderLeft = 'none'; // Ortadaki kesik çizgiyi kaldır
+            } else {
+                p2Side.style.display = 'flex'; // İkinci oyuncuyu göster
+                p1Side.style.borderLeft = '4px dashed #bdc3c7'; // Çizgiyi geri getir
+            }
+
             let shuffledAll = shuffle([...allQuestions]);
             let roundQuestions = shuffledAll.slice(0, 3);
             
-            // 1. Oyuncu için her sorunun doğru cevabını (Evet=true / Hayır=false) oyun başında rastgele belirliyoruz
             let c0 = Math.random() > 0.5;
             let c1 = Math.random() > 0.5;
             let c2 = Math.random() > 0.5;
 
-            // p1State'e soruları ve az önce belirlediğimiz beklenen cevapları atıyoruz
+            // 1. Oyuncu ayarları (Her iki modda da çalışır)
             p1State.questions = [
                 { ...roundQuestions[0], expectedAnswer: c0 }, 
                 { ...roundQuestions[1], expectedAnswer: c1 }, 
                 { ...roundQuestions[2], expectedAnswer: c2 }
             ];
-            
-            // p2State'e soruları atarken, 1. oyuncudaki cevapların TAM ZITTINI (! işareti ile) veriyoruz.
-            // Sıralamayı yine eski kodunuzdaki gibi (2, 0, 1) çapraz yapıyoruz.
-            p2State.questions = [
-                { ...roundQuestions[2], expectedAnswer: !c2 }, 
-                { ...roundQuestions[0], expectedAnswer: !c0 }, 
-                { ...roundQuestions[1], expectedAnswer: !c1 }
-            ];
-            
             p1State.index = 0;
-            p2State.index = 0;
-
             document.getElementById('p1-text').style.color = '#2c3e50';
-            document.getElementById('p2-text').style.color = '#2c3e50';
             document.getElementById('p1-btn-container').style.visibility = 'visible';
-            document.getElementById('p2-btn-container').style.visibility = 'visible';
-
             for(let i=0; i<3; i++){
                 document.getElementById(`p1-step-${i}`).className = 'progress-step';
-                document.getElementById(`p2-step-${i}`).className = 'progress-step';
             }
-
             loadQuestion('p1');
-            loadQuestion('p2');
+
+            // 2. Oyuncu ayarları (Sadece İki Kişilik Modda çalışır)
+            if (currentGameMode === 2) {
+                p2State.questions = [
+                    { ...roundQuestions[2], expectedAnswer: !c2 }, 
+                    { ...roundQuestions[0], expectedAnswer: !c0 }, 
+                    { ...roundQuestions[1], expectedAnswer: !c1 }
+                ];
+                p2State.index = 0;
+                document.getElementById('p2-text').style.color = '#2c3e50';
+                document.getElementById('p2-btn-container').style.visibility = 'visible';
+                for(let i=0; i<3; i++){
+                    document.getElementById(`p2-step-${i}`).className = 'progress-step';
+                }
+                loadQuestion('p2');
+            }
         }
 
         function loadQuestion(playerStr) {
@@ -510,7 +532,16 @@ const allQuestions = [
         }
 
         function checkRoundEnd() {
-            if (p1State.index >= 3 && p2State.index >= 3) {
+            let isRoundOver = false;
+            
+            // YENİ: Moda göre bitiş kontrolü
+            if (currentGameMode === 1) {
+                isRoundOver = p1State.index >= 3;
+            } else {
+                isRoundOver = (p1State.index >= 3 && p2State.index >= 3);
+            }
+
+            if (isRoundOver) {
                 setTimeout(() => {
                     document.getElementById('game-screen').style.display = 'none';
                     document.getElementById('end-screen').style.display = 'flex';
