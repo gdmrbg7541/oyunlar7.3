@@ -277,3 +277,50 @@ button:active {
 .home-button:hover { background: var(--primary); color: white; transform: translateY(-2px); }
 #startScreen button { align-self: center; width: fit-content; min-width: 150px; }
 #checkBtn, #nextBtn { padding: 10px 40px; font-size: 2rem; color: white; }
+
+/* --- MOBİL DİKEY EKRAN UYUMU --- */
+@media (max-width: 800px) {
+    .pickers-container {
+        width: 95% !important;
+        height: 50vh !important;
+        gap: 5px;
+        padding: 5px;
+    }
+    .sentence-box {
+        font-size: clamp(2rem, 6vw, 3.5rem) !important;
+        min-height: 80px !important;
+        padding: 0.5rem;
+        line-height: 1.4;
+    }
+    .picker-item {
+        font-size: clamp(2.5rem, 8vw, 4rem) !important;
+        height: 80px !important;
+        min-height: 80px !important;
+    }
+    .selection-overlay {
+        height: 80px !important;
+    }
+    #startScreen h1 {
+        font-size: clamp(3rem, 10vw, 5rem) !important;
+    }
+    .instructions {
+        font-size: clamp(1.5rem, 5vw, 2.5rem) !important;
+    }
+    button, #checkBtn, #nextBtn {
+        font-size: clamp(1.5rem, 5vw, 2.5rem) !important;
+        padding: 15px 30px !important;
+    }
+    .flash-red, .flash-blue, .flash-green, .static-word {
+        margin-left: 10px !important;
+    }
+    .back-button, .home-button {
+        width: 40px !important;
+        height: 40px !important;
+        top: 10px !important;
+        left: 10px !important;
+    }
+    .back-button svg, .home-button svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
