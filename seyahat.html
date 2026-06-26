@@ -5,11 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لُعْبَة السَّفَر</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+    h1, h2, h3, h4, h5, h6, strong, b { font-weight: normal !important; }
+
+        /* --- CİHAZ DÖNDÜRME UYARISI VE MOBİL YATAY KLAVYE DESTEĞİ --- */
+        #rotate-message {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #2c3e50; 
+            z-index: 99999; 
+            flex-direction: column;
+            align-items: center; justify-content: center;
+            color: white; text-align: center;
+        }
+        .phone-animation {
+            width: 60px; height: 100px;
+            border: 4px solid white; border-radius: 10px;
+            animation: rotate-phone 2s infinite ease-in-out;
+            margin-bottom: 20px; position: relative;
+        }
+        .phone-animation::before {
+            content: ''; position: absolute;
+            top: 10px; left: 50%; transform: translateX(-50%);
+            width: 20%; height: 4px; background: white; border-radius: 2px;
+        }
+        @keyframes rotate-phone {
+            0% { transform: rotate(0deg); opacity: 1; }
+            25% { transform: rotate(90deg); opacity: 1; }
+            70% { transform: rotate(90deg); opacity: 1; }
+            100% { transform: rotate(90deg); opacity: 0; }
+        }
+        .rotate-text { font-size: 2.5rem; font-family: 'Arakom', Tahoma, sans-serif; }
+
+        @media only screen and (max-width: 900px) and (orientation: portrait) and (pointer: coarse) {
+            #rotate-message { display: flex !important; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- CİHAZ DÖNDÜRME UYARISI (TÜM OYUNLAR ORTAK) -->
-    <div id="rotate-message">
+    <div id="rotate-message" style="display: none;">
         <div class="phone-animation"></div>
         <div class="rotate-text">يُرْجى تَدْوير الجِهاز</div> 
     </div>

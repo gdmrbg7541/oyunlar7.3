@@ -21,7 +21,7 @@ function buildHTMLSkeleton() {
                 </svg>
             </a>
             <div class="instructions">
-                💡 <b>اِخْتَر الصّور المُناسِبَة لِلْجُمْلَة.</b>
+                💡 اِخْتَر الصُّوَر المُناسِبَة لِلْجُمْلَة.
             </div>
             <div class="progress-container" id="progressBar">
                 <div class="progress-step"></div>
@@ -42,7 +42,7 @@ function buildHTMLSkeleton() {
         </div>
 
         <div class="game-card hidden" id="nextStudentScreen">
-            <h2 style="font-size: 3rem; color: var(--success);">أَحْسَنْت! 🎉</h2>
+            <h2 style="font-size: 3rem; color: var(--success);">أَحْسَنْت 🎉</h2>
             <p style="font-size: 1.5rem;">لَقَد أَكْمَلْت جَميع الأَسْئِلَة.</p>
             <button onclick="resetGame()">تَغْيير الطّالِب</button>
         </div>
