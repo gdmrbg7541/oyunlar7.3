@@ -15,7 +15,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arakom', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             background-color: #f8f9fa;
         }
@@ -292,21 +292,102 @@
         }
         .rotate-text { font-size: 2.5rem; font-family: 'Arakom', Tahoma, sans-serif; }
 
-        @media only screen and (max-width: 900px) and (orientation: portrait) {
-            #rotate-message { display: flex !important; }
-        }
-
-        @media screen and (max-height: 500px) {
-            body {
-                overflow-y: auto !important;
-                height: auto !important;
-                min-height: 100vh;
-                align-items: flex-start;
-                padding-top: 15px; padding-bottom: 15px;
+        /* MOBİL DİKEY EKRAN (KARŞILIKLI MASADA OYNAMA) */
+        @media only screen and (max-width: 950px) and (orientation: portrait) {
+            body { overflow: hidden !important; }
+            #rotate-message { display: none !important; } /* Eskiden portrait engelliydi, şimdi serbest */
+            
+            #game-screen { position: relative; }
+            #players-container {
+                flex-direction: column-reverse !important; /* P2 ÜSTTE P1 ALTTA */
             }
+            .player-side {
+                padding: 2px 5px !important;
+                justify-content: space-evenly !important; /* Dikeyde öğeleri tam ekrana sığacak şekilde dengeli dağıt */
+            }
+            #p2-side {
+                transform: rotate(180deg);
+                border-bottom: 2px dashed #bdc3c7; /* Ayıraç */
+                border-left: none !important;
+            }
+            #p1-side { border-left: none !important; }
+            
+            /* 2 Kişilik oyunda Header ortada olur */
+            .mode-2p #game-header {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 50px;
+                border: none;
+                background-color: rgba(255,255,255,0.9);
+                border-top: 2px solid #bdc3c7;
+                border-bottom: 2px solid #bdc3c7;
+                z-index: 50;
+            }
+            /* 1 Kişilik oyunda Header en üstte (normal) olur */
+            .mode-1p #game-header {
+                position: relative;
+                top: 0; left: 0;
+                transform: none;
+                height: 50px;
+                border: none;
+                border-bottom: 2px solid #bdc3c7;
+                z-index: 50;
+            }
+            .instruction-text { font-size: 2.5vh !important; }
+            .sine-wave-container { height: 30px !important; }
+
+            /* Elementleri Dikey Ekrana Göre İyice Küçült (Taşma Engelleme) */
+            .emoji-display { font-size: 10vh !important; height: auto !important; margin-bottom: 2px !important; }
+            .question-text { font-size: 3.5vh !important; height: auto !important; margin-bottom: 5px !important; line-height: 1.1 !important; }
+            .btn-container { height: auto !important; gap: 10px !important; margin-bottom: 25px !important; /* Alttaki progress-bar'a yer aç */ }
+            .btn { font-size: 3vh !important; padding: 1vh 4vw !important; gap: 5px !important; }
+            .progress-bar { bottom: 5px !important; gap: 8px !important; }
+            .progress-step { width: 30px !important; height: 8px !important; }
+            
+            /* Başlangıç Ekranı Optimize */
+            .start-buttons { flex-direction: column !important; align-items: center !important; gap: 15px !important; }
+            #start-screen h1 { font-size: clamp(3rem, 10vw, 5rem) !important; text-align: center; margin-bottom: 15px !important; }
+            .main-btn { font-size: clamp(2rem, 6vw, 3.5rem) !important; padding: 15px 40px !important; width: 80% !important; }
+            .nav-svg { width: 40px !important; height: 40px !important; top: 10px !important; left: 10px !important; }
         }
 
-    </style>
+        /* MOBİL YATAY VE DAR EKRANLAR (YAN YANA SIKIŞIK) */
+        @media screen and (max-height: 500px), screen and (max-width: 950px) and (orientation: landscape) {
+            body { overflow: hidden !important; }
+            #rotate-message { display: none !important; }
+            
+            #game-header { height: 40px !important; gap: 15px !important; }
+            .instruction-text { font-size: 4vh !important; }
+            .sine-wave-container { height: 25px !important; width: 60px !important; }
+            
+            .player-side { padding: 5px !important; justify-content: flex-start !important; padding-top: 10px !important; }
+            .emoji-display { font-size: 15vh !important; height: auto !important; margin-bottom: 5px !important; }
+            .question-text { font-size: 8vh !important; height: auto !important; margin-bottom: 5px !important; line-height: 1.1 !important; }
+            .btn-container { height: auto !important; gap: 15px !important; margin-top: 5px !important; }
+            .btn { font-size: 6vh !important; padding: 1vh 2vw !important; }
+            .progress-bar { bottom: 5px !important; gap: 5px !important; }
+            .progress-step { width: 30px !important; height: 8px !important; }
+            
+            #start-screen h1 { font-size: clamp(2.5rem, 8vw, 4rem) !important; margin-bottom: 10px !important;}
+            .main-btn { font-size: clamp(1.5rem, 5vw, 3rem) !important; padding: 10px 30px !important; }
+            .nav-svg { width: 35px !important; height: 35px !important; top: 10px !important; left: 10px !important; }
+        }
+
+    
+    /* VS Tag Resize Fix */
+    .price-vs {
+        width: clamp(40px, 8vw, 60px) !important;
+        height: clamp(40px, 8vw, 60px) !important;
+        flex-shrink: 0;
+        margin: 0 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
 </head>
 <body>
 
@@ -415,25 +496,25 @@ const allQuestions = [
 
     // Mevcut Sorularınız
     // Kırmızı ışıkta geçer misin? -> Kesinlikle HAYIR (false) [cite: 134]
-    { text: "هَل تَعْبُرُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: false },
+    { text: "هَلْ تَعْبُرُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: false },
     // Yeşil ışıkta geçer misin? -> Kesinlikle EVET (true) [cite: 134]
-    { text: "هَل تَعْبُرُ عِنْد الضَّوء الأَخْضَر؟", emoji: "✅", isFixed: true, fixedAnswer: true },
+    { text: "هَلْ تَعْبُرُ عِنْد الضَّوء الأَخْضَر؟", emoji: "✅", isFixed: true, fixedAnswer: true },
     // Kırmızı ışıkta durur musun? -> Kesinlikle EVET (true) [cite: 134]
-    { text: "هَل تَقِفُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: true },
+    { text: "هَلْ تَقِفُ عِنْد الضَّوء الأَحْمَر؟", emoji: "🛑", isFixed: true, fixedAnswer: true },
 
     // Yeni Eklenenler: Trafik Kuralları ve Karşılaştırmalar
     // Sarı ışıkta geçer misin? -> Kesinlikle HAYIR (false) [cite: 134]
-    { text: "هَل تَعْبُرُ عِنْد الضَّوْء الأَصْفَر؟", emoji: "🟡", isFixed: true, fixedAnswer: false },
+    { text: "هَلْ تَعْبُرُ عِنْد الضَّوْء الأَصْفَر؟", emoji: "🟡", isFixed: true, fixedAnswer: false },
     // Trafik işaretleri önemli midir? -> Kesinlikle EVET (true) [cite: 134]
     { text: "هَلْ إِشارات المُرور مُهِمَّة؟", emoji: "🚦", isFixed: true, fixedAnswer: true },
     // Uçak gemiden daha mı hızlıdır? -> Kesinlikle EVET (true) [cite: 130]
-    { text: "هَلْ الطّائِرَة أَسْرَع مِن السَّفينَة؟", emoji: "✈️", isFixed: true, fixedAnswer: true },
+    { text: "هَل الطّائِرَة أَسْرَع مِن السَّفينَة؟", emoji: "✈️", isFixed: true, fixedAnswer: true },
     // Bisiklet trenden daha mı yavaştır? -> Kesinlikle EVET (true) [cite: 130]
-    { text: "هَلْ الدَّرّاجَة أَبْطَأ مِن القِطار؟", emoji: "🚲", isFixed: true, fixedAnswer: true },
+    { text: "هَل الدَّرّاجَة أَبْطَأ مِن القِطار؟", emoji: "🚲", isFixed: true, fixedAnswer: true },
     // Tren otobüsten daha mı eskidir? -> Metne göre EVET (true) [cite: 129]
-    { text: "هَلْ القِطار أَقْدَم مِن الحافِلَة؟", emoji: "🚆", isFixed: true, fixedAnswer: true },
+    { text: "هَل القِطار أَقْدَم مِن الحافِلَة؟", emoji: "🚆", isFixed: true, fixedAnswer: true },
     // Metro arabadan daha mı yenidir/moderndir? -> Metne göre EVET (true) [cite: 130]
-    { text: "هَل المِتْرو أَحْدَث مِن السَّيّارَة؟", emoji: "🚇", isFixed: true, fixedAnswer: true }
+    { text: "هَل المِتْرو أَسْرَع مِن الدَّرّاجَة؟", emoji: "🚇", isFixed: true, fixedAnswer: true }
 ];
 
         let p1State = { index: 0, questions: [], currentAnswer: null };
